@@ -17,20 +17,24 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-light" href="{{ route('category.index') }}">Category</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-light" href="{{ route('product.index') }}">Product</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-light" href="#">Disabled</a>
-                </li>
-              </ul>
+            	<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link text-light" href="{{ route('admin.index') }}">Home<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="{{ route('category.index') }}">Category</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-light" href="{{ route('product.index') }}">Product</a>
+					</li>
+					<li class="nav-item">
+						@if (Session::has('User'))
+							<a class="nav-link text-light" href="{{ route('admin.logout') }}">Logout</a>
+						@else
+							<a class="nav-link text-light" href="{{ route('admin.login') }}">Login</a>
+						@endif
+					</li>
+            	</ul>
             </div>
         </nav>
     </div>

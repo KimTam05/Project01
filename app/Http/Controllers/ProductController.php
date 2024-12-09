@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -22,9 +23,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $prod = Product::orderBy('category_id', 'ASC');
-        
-        return view('admin.product.create');
+        $prod = Category::pluck('name', 'id');
+        return view('admin.product.create', ['prod' => $prod]);
     }
 
     /**
@@ -36,13 +36,13 @@ class ProductController extends Controller
             'name'=> 'required|unique:products',
             'image' => 'required',
             'price' => 'required|numeric',
-            'content' => 'optional',
-            'category_id' => 'required|exists:category',
+            'content' => 'nullable',
+            'category_id' => 'required',
         ]);
 
-        $data = $request->all('name', 'image', 'price','content', 'category_id');
-
-        return redirect('')->route('product.index');
+        $data = $request->all('name', 'image', 'price','content', 'category_id', 'status');
+        Product::create($data);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -58,7 +58,8 @@ class ProductController extends Controller
      */
     public function edit(Product $Product)
     {
-        return view('admin.product.edit', compact('product'));
+        $prod = Category::pluck('name', 'id');
+        return view('admin.product.edit', compact('Product'), ['prod' => $prod]);
     }
 
     /**
@@ -76,8 +77,7 @@ class ProductController extends Controller
 
         $data = $request->all('name', 'image', 'price','content');
         $Product -> update($data);
-
-        return redirect('')->route('product.index');
+        return redirect()->route('product.index');
     }
 
     /**
@@ -86,7 +86,6 @@ class ProductController extends Controller
     public function destroy(Product $Product)
     {
         $Product->delete();
-
         return redirect()->route('product.index');
     }
 }

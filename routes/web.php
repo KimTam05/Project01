@@ -23,6 +23,9 @@ Route::post('/admin/login', [AdminController::class,'check_login']);
 Route::get('/admin/register', [AdminController::class,'register'])->name('admin.register');
 Route::post('/admin/register', [AdminController::class,'check_register']);
 
+
+Route::get('/admin/logout', [AdminController::class,'logout'])->name('admin.logout');
+
 Route::group(['prefix'=> 'admin', 'middleware'=> 'auth'], function () {
     Route::get('/', [AdminController::class,'index'])->name('admin.index');
 

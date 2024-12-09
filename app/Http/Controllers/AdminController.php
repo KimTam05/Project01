@@ -17,7 +17,7 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
-    public function check_login(){
+    public function check_login(Request $request){
         request()->validate([
             'email'=> 'required|email|exists:users',
             'password'=> 'required',
@@ -25,6 +25,7 @@ class AdminController extends Controller
         $data = request()->all('email','password');
         $user = User::where('email', $data['email'])->first();
         if(auth()->attempt($data) && $user && Hash::check($data['password'], $user->password)){
+            $request->session()->put('User', $user->name);
             return redirect()->route('admin.index');
         }else{
             $message = "Incorrect Password!";
@@ -47,6 +48,11 @@ class AdminController extends Controller
         // $data = request()->all('email', 'password');
         $data['password'] = bcrypt(request('password'));
         User::create($data);
+        return redirect()->route('admin.login');
+    }
+
+    public function logout(){
+        Auth::logout();
         return redirect()->route('admin.login');
     }
 }

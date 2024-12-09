@@ -23,10 +23,10 @@
                     <tr>
                         <td>{{ $item->id }}</td> 
                         <td>{{ $item->name }}</td>
-                        <td>{{ $items->image }}</td>
-                        <td>{{ $items->price }}</td>
-                        <td>{{ $items->content }}</td>
-                        <td>{{ $items->category_id }}</td>
+                        <td>{{ $item->image }}</td>
+                        <td>{{ $item->price }}</td>
+                        <td>{{ $item->content }}</td>
+                        <td>{{ $item->category_id }}</td>
                         <td>{{ $item->status == 0 ? 'Tạm ẩn' : 'Hiển thị' }}</td>
                         <td>
                             <form action="{{ route('product.destroy', $item->id) }}" method="post">
