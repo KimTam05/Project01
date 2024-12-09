@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -20,9 +21,15 @@ class AdminController extends Controller
         request()->validate([
             'email'=> 'required|email|exists:users',
             'password'=> 'required',
-        ]);
+        ]); 
         $data = request()->all('email','password');
-        Auth::login($data);
+        $user = User::where('email', $data['email'])->first();
+        if(auth()->attempt($data) && $user && Hash::check($data['password'], $user->password)){
+            return redirect()->route('admin.index');
+        }else{
+            $message = "Incorrect Password!";
+            return redirect()->route('admin.login')->withErrors(['password' => "Incorrect Password!",   ]);
+        }
     }
 
     public function register(){
@@ -31,12 +38,13 @@ class AdminController extends Controller
 
     public function check_register(){
         request()->validate([
-            'name'=> 'required',
+            'name'=> 'required|unique:users',
             'email'=> 'required|email|unique:users',
-            'password'=> 'required',
+            'password'=> 'required|min:5',
             'confirm_password' => 'required|same:password',
         ]);
-        $data = request()->all('email', 'password');
+        $data = request()->all('name','email', 'password');
+        // $data = request()->all('email', 'password');
         $data['password'] = bcrypt(request('password'));
         User::create($data);
         return redirect()->route('admin.login');

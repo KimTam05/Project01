@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,10 @@ Route::post('/admin/register', [AdminController::class,'check_register']);
 Route::group(['prefix'=> 'admin', 'middleware'=> 'auth'], function () {
     Route::get('/', [AdminController::class,'index'])->name('admin.index');
 
+    Route::resources([
+        'category'=> CategoryController::class,
+        'product'=> ProductController::class,
+    ]);
 });
 
 Route::group(['prefix'=> ''], function () {
