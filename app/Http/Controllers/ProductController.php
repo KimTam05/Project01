@@ -22,6 +22,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $prod = Product::orderBy('category_id', 'ASC');
+        
         return view('admin.product.create');
     }
 

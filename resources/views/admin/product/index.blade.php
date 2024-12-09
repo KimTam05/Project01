@@ -2,7 +2,7 @@
 
 @section('main')
     <h1> Danh mục</h1>
-    <a href="{{route('category.create')}}" class="btn btn-primary">Thêm mới</a>
+    <a href="{{route('product.create')}}" class="btn btn-primary">Thêm mới</a>
     <hr>
     <div class="table-responsive">
         <table class="table table-primary">
@@ -10,21 +10,29 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Category ID</th>
                     <th scope="col">Status</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cats as $item)
+                @foreach ($prod as $item)
                     <tr>
                         <td>{{ $item->id }}</td> 
                         <td>{{ $item->name }}</td>
+                        <td>{{ $items->image }}</td>
+                        <td>{{ $items->price }}</td>
+                        <td>{{ $items->content }}</td>
+                        <td>{{ $items->category_id }}</td>
                         <td>{{ $item->status == 0 ? 'Tạm ẩn' : 'Hiển thị' }}</td>
                         <td>
-                            <form action="{{ route('category.destroy', $item->id) }}" method="post">
+                            <form action="{{ route('product.destroy', $item->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('category.edit', $item->id) }}" class="btn btn-primary">Sửa</a>
+                                <a href="{{ route('product.edit', $item->id) }}" class="btn btn-primary">Sửa</a>
                                 <button class="btn btn-danger">Xóa</a>
                             </form>
                             

@@ -1,9 +1,9 @@
 @extends('admin.index')
 @section('main')
 
-<h1>Thêm danh mục</h1>
+<h1>Thêm sản phẩm</h1>
 
-<form action="{{ route('category.store') }}" method="post" role="form">
+<form action="{{ route('product.store') }}" method="post" role="form">
     @csrf
     <div class="col-md-4">
         <div class="form-group">
@@ -28,7 +28,11 @@
 
         <div class="form-group">
             <label for="">Category ID</label>
-            <select name="category_id" id=""></select>
+            <select class="form-select" name="category_id" id="">
+                @foreach ($prod as $item)
+                    <option value="{{ $item->catergory_id }}"> {$item->catergory_id} </option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">

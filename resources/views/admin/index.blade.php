@@ -10,22 +10,30 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    <nav class="nvabar navbar-inverse">
-        <div class="container">
-            <a href="#" class="navbar-brand">Title</a>
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a href="{{route('admin.index')}}" class="nav-link">Home</a>
+    <div class="container-fluid bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand text-light" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('category.index') }}" class="nav-link">Category</a>
+                  <a class="nav-link text-light" href="{{ route('category.index') }}">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('product.index')}}" class="nav-link">Product</a>
+                  <a class="nav-link text-light" href="{{ route('product.index') }}">Product</a>
                 </li>
-            </ul>
-        </div>
-    </nav>
+                <li class="nav-item">
+                  <a class="nav-link text-light" href="#">Disabled</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+    </div>
 
     <div class="container">
         @yield('main')
