@@ -28,7 +28,6 @@ class AdminController extends Controller
             $request->session()->put('User', $user->name);
             return redirect()->route('admin.index');
         }else{
-            $message = "Incorrect Password!";
             return redirect()->route('admin.login')->withErrors(['password' => "Incorrect Password!",   ]);
         }
     }

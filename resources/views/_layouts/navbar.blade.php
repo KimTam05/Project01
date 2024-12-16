@@ -10,13 +10,17 @@
                     <a class="nav-link text-white px-3" href="#">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3" href="#">About Me</a>
+                    <a class="nav-link text-white px-3" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3" href="#">Contact Me</a>
+                    <a class="nav-link text-white px-3" href="#">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3" href="#">Account</a>
+                    @if (Session::has('login_success'))
+                        <a href="/logout" class="nav-link text-light">Logout</a>
+                    @else
+                        <a href="/login" class="nav-link text-light">Login</a>
+                    @endif
                 </li>
             </ul>
         </div>

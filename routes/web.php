@@ -37,4 +37,9 @@ Route::group(['prefix'=> 'admin', 'middleware'=> 'auth'], function () {
 
 Route::group(['prefix'=> ''], function () {
     Route::get('/', [HomeController::class,'index'])->name('home.index');
+    Route::get('/login', [HomeController::class,'login'])->name('home.login');
+    Route::post('/login', [HomeController::class,'loginSubmit']);
+    Route::get('/register', [HomeController::class,'register'])->name('home.register');
+    Route::post('/register', [HomeController::class,'registerSubmit']);
+    Route::get('/logout', [HomeController::class,'logout'])->name('home.logout');
 });
